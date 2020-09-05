@@ -1,0 +1,3 @@
+client_id = "b4459979591c4cafa8b53d96b1cec46a"
+client_secret = "02d63d2d527748c99d717043f2c7bb63"
+user_auth_token = "BQCl2pLZLsW1EDrs6xWygC9hSjbUk1GhMpvJ9P4kiSo3o4cD2LTkExAN44qwjuujdU53oADpmR1qDO0c_Q85wAC9SMClfcE_KtD3HwTdor4QpqB5zxXMosUruZjqEIhTBMgumlCNinrGjgriqcuRpgfoDYVMfVvkHJUfr0Z1t3lA"
