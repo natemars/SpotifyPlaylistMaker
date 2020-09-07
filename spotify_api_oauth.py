@@ -52,14 +52,24 @@ class SpotifyAPI(object):
             raise Exception(
                 "get_playlists failed with: {}".format(r.status_code))
         return r.json()
-
-    def get_playlist_tracks(self, playlist_id):
+    
+    def get_playlist(self, playlist_id):
         headers = self.get_resource_header()
-        endpoint = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
+        endpoint = f"https://api.spotify.com/v1/playlists/{playlist_id}"
         r = requests.get(endpoint, headers=headers)
         if r.status_code not in range(200, 299):
             raise Exception(
-                "get_playlists failed with: {}".format(r.status_code))
+                "get_playlists_tracks failed with: {}".format(r.status_code))
+        return r.json()
+
+    def get_playlist_tracks(self, playlist_id, offset=0, limit=100):
+        headers = self.get_resource_header()
+        query_params = urlencode({"offset": offset, "limit": limit})
+        endpoint = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks?{query_params}"
+        r = requests.get(endpoint, headers=headers)
+        if r.status_code not in range(200, 299):
+            raise Exception(
+                "get_playlists_tracks failed with: {}".format(r.status_code))
         return r.json()
 
     def search(self, query=None, operator=None, operator_query=None, search_type='artist'):

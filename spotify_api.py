@@ -117,18 +117,6 @@ class SpotifyAPI(object):
                 "get_playlists failed with: {}".format(r.status_code))
         return r.json()
 
-    def get_a_playlist(self, playlist_id, access_token):
-        headers = {
-            "Authorization": f"Bearer {access_token}"
-        }
-        endpoint = f"https://api.spotify.com/v1/playlists/{playlist_id}"
-
-    def get_playlist_tracks(self, playlist_id, access_token):
-        headers = {
-            "Authorization": f"Bearer {access_token}"
-        }
-        endpoint = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
-
     def search(self, query=None, operator=None, operator_query=None, search_type='artist'):
         if query == None:
             raise Exception("A query is required")
