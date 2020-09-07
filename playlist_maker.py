@@ -7,24 +7,20 @@ def checkRecentAdded(spotify, playlistId):
     print(json.dumps(json_output, indent=4))
 
 def getPlaylistIdFromName(spotify, name):
-    print("")
-    
+    json_output = spotify.get_playlists()
+    playlist_id = None
+    for item in json_output["items"]:
+        if(item["name"] == name):
+            href = item["tracks"]["href"]
+            playlist_id = href.split("/")[5]
+            return playlist_id
+
+    if playlist_id == None:
+        raise Exception("Playlist ID was not found.")
+                    
+        
 
 
 spotify = SpotifyAPI(user_auth_token)
-# print(spotify.search({"track": "Time"}))
-# json_output = spotify.get_playlists()
-# print(json.dumps(json_output, indent=4))
-# for key in json_output:
-#     # print(json.dumps(json_output[key], indent=4))
-#     if (key == "items"):
-#         # print(json.dumps(json_output[key], indent=4))
-#         for item in json_output[key]:
-#             # print(json.dumps(item, indent=4))
-#             for item_key in item:
-#                 if (item_key == "name"):
-#                     print(item[item_key])
-
-checkRecentAdded(spotify, "37i9dQZEVXcJqwWvsXBOAM")
-# json_output = spotify.get_playlist_tracks("37i9dQZEVXcJqwWvsXBOAM")
-# print(json.dumps(json_output, indent=4))
+getPlaylistIdFromName(spotify, "DW LOG")
+# checkRecentAdded(spotify, "37i9dQZEVXcJqwWvsXBOAM")

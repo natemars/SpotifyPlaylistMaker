@@ -48,7 +48,6 @@ class SpotifyAPI(object):
         get_playlists_url = f"{endpoint}?{query_params}"
         headers = self.get_resource_header()
         r = requests.get(get_playlists_url, headers=headers)
-        print("Playlist url: " + get_playlists_url)
         if r.status_code not in range(200, 299):
             raise Exception(
                 "get_playlists failed with: {}".format(r.status_code))
