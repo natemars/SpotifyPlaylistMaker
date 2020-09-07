@@ -3,12 +3,14 @@ from spotify_api_oauth import SpotifyAPI
 import json
 
 def check_recent_added(spotify, playlistId):
-    json_output = spotify.get_playlist_tracks(playlist_id)
-    # print(json_output["items"]["added_at"])
-    for item in json_output["items"]:
-        print(item['added_at'])
-        print(len(json_output["items"]))
-    # print(json.dumps(json_output, indent=4))
+    next_request = " "
+    offset = 0
+    while next_request != None:
+        json_output = spotify.get_playlist_tracks(playlist_id, offset, 100)
+        for items in json_output["items"]:
+            print(items["added_at"])
+        next_request = json_output["next"]
+        offset += 100
 
 def get_playlist_id_from_name(spotify, name):
     json_output = spotify.get_playlists()
@@ -26,5 +28,4 @@ def get_playlist_id_from_name(spotify, name):
 spotify = SpotifyAPI(user_auth_token)
 # playlist_id = getPlaylistIdFromName(spotify, "Discover Weekly")
 playlist_id = get_playlist_id_from_name(spotify, "DW LOG")
-print(json.dumps(spotify.get_playlist(playlist_id), indent=4))
-# check_recent_added(spotify, playlist_id)
+check_recent_added(spotify, playlist_id)
