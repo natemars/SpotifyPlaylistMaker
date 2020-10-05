@@ -1,3 +1,6 @@
 check dwlog added date of most recent songs
 if greater than a week ago
+    get all songs from discovery weekly
+
+
 

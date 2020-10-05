@@ -129,3 +129,6 @@ class SpotifyAPI(object):
                     query = f"{query} {operator} {operator_query}"
         query_params = urlencode({"q": query, "type": search_type.lower()})
         return self.base_search(query_params)
+
+    def authorize(self):
+        
