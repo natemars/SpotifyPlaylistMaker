@@ -18,6 +18,14 @@ class SpotifyAPI(object):
             "Authorization": f"Bearer {access_token}"
         }
         return headers
+    
+    def get_json_resource_header(self):
+        access_token = self.user_auth_token
+        headers = {
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/json"
+        }
+        return headers
 
     def get_resource(self, lookup_id, resource_type='albums', version='v1'):
         endpoint = f"https://api.spotify.com/{version}/{resource_type}/{lookup_id}"
@@ -67,6 +75,15 @@ class SpotifyAPI(object):
         query_params = urlencode({"offset": offset, "limit": limit})
         endpoint = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks?{query_params}"
         r = requests.get(endpoint, headers=headers)
+        if r.status_code not in range(200, 299):
+            raise Exception(
+                "get_playlists_tracks failed with: {}".format(r.status_code))
+        return r.json()
+    
+    def post_playlist_tracks(self, playlist_id, json_body):
+        headers = self.get_json_resource_header()
+        endpoint = f"https://api.spotify.com/v1/users/bunny_khan/playlists/{playlist_id}/tracks"
+        r = requests.post(endpoint, headers=headers, json=json_body)
         if r.status_code not in range(200, 299):
             raise Exception(
                 "get_playlists_tracks failed with: {}".format(r.status_code))
